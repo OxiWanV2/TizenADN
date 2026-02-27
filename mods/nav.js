@@ -13,6 +13,7 @@ const FOCUSABLE = [
 
 let elements = [];
 let index = 0;
+let tokenInputFocused = false;
 
 export function refresh() {
   elements = Array.from(document.querySelectorAll(FOCUSABLE)).filter(el => {
@@ -143,6 +144,7 @@ function showTokenPopup() {
 
   const btn = document.createElement('button');
   btn.textContent = 'Valider';
+  btn.id = '__adn_token_btn';
   btn.style.cssText = `
     padding: 14px 40px;
     font-size: 20px;
@@ -155,7 +157,7 @@ function showTokenPopup() {
   `;
 
   const hint = document.createElement('div');
-  hint.textContent = 'Appuyez sur OK pour valider';
+  hint.textContent = '↑↓ Naviguer • OK Valider';
   hint.style.cssText = `color: #555; font-size: 14px;`;
 
   function validate() {
@@ -163,17 +165,14 @@ function showTokenPopup() {
     if (!token) return;
     localStorage.setItem('token', token);
     overlay.remove();
+    tokenInputFocused = false;
     window.location.href = '/';
   }
 
   btn.addEventListener('click', validate);
 
-  input.addEventListener('keydown', e => {
-    if (e.keyCode === 13) {
-      e.stopPropagation();
-      validate();
-    }
-  });
+  input.addEventListener('focus', () => { tokenInputFocused = true; });
+  input.addEventListener('blur', () => { tokenInputFocused = false; });
 
   box.appendChild(title);
   box.appendChild(subtitle);
@@ -183,7 +182,10 @@ function showTokenPopup() {
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 
-  setTimeout(() => input.focus(), 100);
+  setTimeout(() => {
+    input.focus();
+    tokenInputFocused = true;
+  }, 100);
 }
 
 function checkLoginPage() {
@@ -215,7 +217,49 @@ history.pushState = function(...args) {
 window.addEventListener('popstate', checkLoginPage);
 
 document.addEventListener('keydown', e => {
-  if (document.querySelector('#__adn_token_popup')) return;
+  const popup = document.querySelector('#__adn_token_popup');
+  
+  if (popup) {
+    const input = document.querySelector('#__adn_token_input');
+    const btn = document.querySelector('#__adn_token_btn');
+    
+    switch (e.keyCode) {
+      case 13:
+        e.preventDefault();
+        e.stopPropagation();
+        const token = input.value.trim();
+        if (token) {
+          localStorage.setItem('token', token);
+          popup.remove();
+          tokenInputFocused = false;
+          window.location.href = '/';
+        }
+        break;
+      case 40:
+        e.preventDefault();
+        e.stopPropagation();
+        btn.focus();
+        tokenInputFocused = false;
+        break;
+      case 38:
+        e.preventDefault();
+        e.stopPropagation();
+        input.focus();
+        tokenInputFocused = true;
+        break;
+      case 10009:
+      case 10182:
+        e.preventDefault();
+        e.stopPropagation();
+        break;
+      default:
+        if (tokenInputFocused) {
+          return;
+        }
+    }
+    return;
+  }
+
   refresh();
   switch (e.keyCode) {
     case 38: e.preventDefault(); focusEl(nearest('UP'));    break;
