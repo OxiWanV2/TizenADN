@@ -1,7 +1,7 @@
 {
   "name": "@oxiwan/tizenadn",
   "appName": "ADN - Anime Digital Network",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "TizenBrew module pour Anime Digital Network sur TV Samsung",
   "packageType": "mods",
   "websiteURL": "https://animationdigitalnetwork.fr",

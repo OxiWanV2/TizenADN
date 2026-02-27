@@ -13,7 +13,6 @@ const FOCUSABLE = [
 
 let elements = [];
 let index = 0;
-let tokenInputFocused = false;
 
 export function refresh() {
   elements = Array.from(document.querySelectorAll(FOCUSABLE)).filter(el => {
@@ -24,7 +23,7 @@ export function refresh() {
 
 export function focusEl(i) {
   document.querySelectorAll('.__adn_focus').forEach(el => {
-    el.classList.remove('__adn_focus');
+    el.classList.remove('.__adn_focus');
   });
   if (!elements[i]) return;
   index = i;
@@ -157,7 +156,7 @@ function showTokenPopup() {
   `;
 
   const hint = document.createElement('div');
-  hint.textContent = '↑↓ Naviguer • OK Valider';
+  hint.textContent = '↓ Bouton • OK Valider';
   hint.style.cssText = `color: #555; font-size: 14px;`;
 
   function validate() {
@@ -165,14 +164,10 @@ function showTokenPopup() {
     if (!token) return;
     localStorage.setItem('token', token);
     overlay.remove();
-    tokenInputFocused = false;
     window.location.href = '/';
   }
 
   btn.addEventListener('click', validate);
-
-  input.addEventListener('focus', () => { tokenInputFocused = true; });
-  input.addEventListener('blur', () => { tokenInputFocused = false; });
 
   box.appendChild(title);
   box.appendChild(subtitle);
@@ -182,10 +177,7 @@ function showTokenPopup() {
   overlay.appendChild(box);
   document.body.appendChild(overlay);
 
-  setTimeout(() => {
-    input.focus();
-    tokenInputFocused = true;
-  }, 100);
+  setTimeout(() => input.focus(), 100);
 }
 
 function checkLoginPage() {
@@ -222,40 +214,43 @@ document.addEventListener('keydown', e => {
   if (popup) {
     const input = document.querySelector('#__adn_token_input');
     const btn = document.querySelector('#__adn_token_btn');
+    const focused = document.activeElement;
     
     switch (e.keyCode) {
       case 13:
         e.preventDefault();
         e.stopPropagation();
-        const token = input.value.trim();
-        if (token) {
-          localStorage.setItem('token', token);
-          popup.remove();
-          tokenInputFocused = false;
-          window.location.href = '/';
+        if (focused === btn) {
+          const token = input.value.trim();
+          if (token) {
+            localStorage.setItem('token', token);
+            popup.remove();
+            window.location.href = '/';
+          }
+        } else {
+          btn.focus();
         }
         break;
       case 40:
         e.preventDefault();
         e.stopPropagation();
-        btn.focus();
-        tokenInputFocused = false;
+        if (focused === input) {
+          btn.focus();
+        }
         break;
       case 38:
         e.preventDefault();
         e.stopPropagation();
-        input.focus();
-        tokenInputFocused = true;
+        if (focused === btn) {
+          input.focus();
+        }
         break;
       case 10009:
       case 10182:
         e.preventDefault();
         e.stopPropagation();
+        popup.remove();
         break;
-      default:
-        if (tokenInputFocused) {
-          return;
-        }
     }
     return;
   }
