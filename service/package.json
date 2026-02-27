@@ -1,0 +1,16 @@
+{
+  "name": "@oxiwan/tizenadn-service",
+  "version": "1.0.0",
+  "description": "ADN TizenBrew service",
+  "main": "service.js",
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
+  "author": "Lorenzo",
+  "license": "MIT",
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "rollup": "^3.26.2"
+  }
+}

@@ -1,0 +1,70 @@
+.__adn_focus {
+  outline: 3px solid #e94560 !important;
+  outline-offset: 2px !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0 0 15px rgba(233, 69, 96, 0.6) !important;
+  transition: transform 0.15s ease !important;
+  z-index: 9999 !important;
+  position: relative !important;
+}
+
+.__adn_focus::before {
+  content: '';
+  position: absolute;
+  top: -3px; left: -3px; right: -3px; bottom: -3px;
+  border: 2px solid #e94560;
+  border-radius: 3px;
+  box-shadow: 0 0 15px 3px rgba(233, 69, 96, 0.5);
+  pointer-events: none;
+  z-index: -1;
+}
+
+body, html {
+  cursor: none !important;
+  overflow: auto !important;
+  position: static !important;
+}
+
+.sd-cmp-gpI1s,
+.sd-cmp-cWOb7,
+.sd-cmp-FzC1t,
+.sd-cmp-hk3jy,
+.sd-cmp-MtHO2,
+#__abconsent-cmp,
+#sd-cmp,
+[class*="sd-cmp-"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.adn-toast {
+  position: fixed;
+  top: 20px; right: 20px;
+  background: rgba(0,0,0,0.75);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 18px;
+  z-index: 99999;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+.adn-toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#__adn_token_popup input:focus {
+  border-color: #e94560 !important;
+  box-shadow: 0 0 10px rgba(233, 69, 96, 0.5) !important;
+}
+
+#__adn_token_popup button:hover,
+#__adn_token_popup button:focus {
+  background: #007acc !important;
+  transform: scale(1.05);
+}

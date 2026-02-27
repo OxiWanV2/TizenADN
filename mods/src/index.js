@@ -19,8 +19,8 @@
     PAUSE: 19,
     PLAY_PAUSE: 10252,
     STOP: 413,
-    FF: 417,      // Fast Forward
-    RW: 412,      // Rewind
+    FF: 417,
+    RW: 412,
     RED: 403,
     GREEN: 404,
     YELLOW: 405,

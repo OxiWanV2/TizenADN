@@ -1,15 +1,34 @@
 {
-  "name": "@ton-pseudo/adn-tizenbrew",
-  "version": "1.0.0",
-  "description": "TizenBrew module pour Anime Digital Network sur TV Samsung Tizen",
-  "packageType": "mods",
+  "name": "@oxiwan/tizenadn",
   "appName": "ADN - Anime Digital Network",
-  "url": "https://animationdigitalnetwork.fr",
+  "version": "1.2.0",
+  "description": "TizenBrew module pour Anime Digital Network sur TV Samsung",
+  "packageType": "mods",
+  "websiteURL": "https://animationdigitalnetwork.fr",
+  "main": "dist/userScript.js",
+  "serviceFile": "dist/service.js",
   "scripts": {
-    "build": "cd mods && npm install && npm run build && cd .."
+    "install-deps": "cd mods && npm install && cd ../service && npm install && cd ..",
+    "build": "cd mods && npm run build && cd ../service && npm run build && cd .."
   },
-  "keywords": ["tizenbrew", "adn", "anime", "streaming", "tizen", "samsung"],
+  "keys": [
+    "MediaPlayPause",
+    "MediaPlay",
+    "MediaPause",
+    "MediaStop",
+    "MediaFastForward",
+    "MediaRewind",
+    "MediaTrackNext",
+    "MediaTrackPrevious"
+  ],
   "author": "Lorenzo",
   "license": "MIT",
-  "icon": "https://animationdigitalnetwork.fr/favicon.ico"
+  "keywords": ["tizenbrew", "tizen", "samsung", "tv", "adn", "anime"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OxiWanV2/TizenADN"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
 }
