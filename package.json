@@ -1,0 +1,15 @@
+{
+  "name": "@ton-pseudo/adn-tizenbrew",
+  "version": "1.0.0",
+  "description": "TizenBrew module pour Anime Digital Network sur TV Samsung Tizen",
+  "packageType": "mods",
+  "appName": "ADN - Anime Digital Network",
+  "url": "https://animationdigitalnetwork.fr",
+  "scripts": {
+    "build": "cd mods && npm install && npm run build && cd .."
+  },
+  "keywords": ["tizenbrew", "adn", "anime", "streaming", "tizen", "samsung"],
+  "author": "Lorenzo",
+  "license": "MIT",
+  "icon": "https://animationdigitalnetwork.fr/favicon.ico"
+}
